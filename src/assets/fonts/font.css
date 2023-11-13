@@ -1,0 +1,15 @@
+@font-face {
+    font-family: '旁门正道';
+    /* 重命名字体名 */
+    src: url('./PangMenZhengDaoBiaoTiTi-1.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: '思源';
+    /* 重命名字体名 */
+    src: url('./SourceHanSansCN-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
