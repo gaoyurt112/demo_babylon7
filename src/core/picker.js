@@ -96,15 +96,27 @@ export function rljcPicker(scene, data) {
 
 
 
+/**
+  1.有单独父级，根据父组件名称判断是否为同一个模型
+  
+  
+  
+  2.如果为整体的父级，那么就根据模型名称进行判断是否为同一个模型
+  
+  
+  
+ */
+
+
+
 // 设备选择拾取方法
 let cloneParent = '' //记录上一个选中mesh的parent
+let cloneMesh = '' //记录上一个选中mesh
 export function DeviceSearchPicker(sceneObj, isScene1) {
     return function (pointerInfo) {
         let timer = '';
         // 判断是都选中模型
         let pickResult = pointerInfo.pickInfo
-
-
         if (pointerInfo && pickResult?.hit && pointerInfo.event.button == 0) {
             // 判断单双击
             switch (pointerInfo.type) {
@@ -118,6 +130,9 @@ export function DeviceSearchPicker(sceneObj, isScene1) {
 
                         // 判断是否为同一个mesh
                         if (pickResult.pickedMesh.parent.name == cloneParent) {
+
+
+
                             return
                         }
 
@@ -134,8 +149,10 @@ export function DeviceSearchPicker(sceneObj, isScene1) {
                                 }
                             })
                         }
+
                         //选中精密空调操作
                         if (/^air_/.test(pickResult.pickedMesh.name)) {
+
                             // console.log('选中精密空调');
                             if (pickResult.pickedMesh.name[4] <= 2) {
                                 cameraFly(sceneObj.scene.cameras[0], 60, pickResult.pickedMesh.absolutePosition, 0.6436, -1.5683, 0.7001)
