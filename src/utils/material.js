@@ -13,6 +13,7 @@ export function createWallMat(scene) {
     wallMat.smoothness = 1; //光滑度
     wallMat.backFaceCulling = false; //取消背面剔除
     wallMat.needDepthPrePass = true; //深度预通过
+    wallMat.disableLighting = true; //禁用光照
     return wallMat
 }
 

@@ -19,7 +19,7 @@
         <!-- 进入系统 -->
         <div class="setting">
             <div class="setting_icon"></div>
-            <div class="setting_text">进入后台</div>
+            <div class="setting_text" @click="jumpManger()">进入后台</div>
         </div>
         <!-- 用户名称 -->
         <div class="userName">
@@ -363,6 +363,10 @@ export default defineComponent({
             /**灯光修改 */
         }
 
+        function jumpManger() {
+            window.open('http://localhost:82', "_blank")
+        }
+
 
         return {
             isEntering,
@@ -381,7 +385,8 @@ export default defineComponent({
             afjc_subMenu,
             znkz_subMenu,
             currentTheme,
-            changeTheme
+            changeTheme,
+            jumpManger
         }
     }
 })

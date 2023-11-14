@@ -391,6 +391,10 @@ export default defineComponent({
             sceneObj.scene.transformNodes.find(item => item.name == 'pdu_group').setEnabled(bool)
             // 管线组
             sceneObj.scene.transformNodes.find(item => item.name == 'others_group').setEnabled(bool)
+            // 温湿度传感器
+            sceneObj.scene.transformNodes.find(item => item.name == 'tempGroup').setEnabled(bool)
+            // 轨道相机
+            sceneObj.scene.transformNodes.find(item => item.name == 'monitor_rail').setEnabled(bool)
         }
 
 
@@ -470,7 +474,7 @@ export default defineComponent({
                         z = 0;
                     }
 
-                    each(series.data, function (point) {
+                    series.data.forEach(point => {
                         var shapeArgs = point.shapeArgs,
                             angle;
                         point.shapeType = "arc3d";
@@ -490,7 +494,7 @@ export default defineComponent({
                                 sin(angle) * seriesOptions.slicedOffset * cos(alpha * deg2rad)
                             ),
                         };
-                    });
+                    })
                 }
             );
             (function (H) {
@@ -519,7 +523,7 @@ export default defineComponent({
                         load: function () {
                             var each = Highcharts.each,
                                 points = this.series[0].points;
-                            each(points, function (p, i) {
+                            points.forEach((p, i) => {
                                 p.graphic.attr({
                                     translateY: -p.shapeArgs.ran,
                                 });
@@ -607,8 +611,8 @@ export default defineComponent({
             Highcharts.addEvent(chart, 'redraw', function () {
                 var each = Highcharts.each,
                     points = chart.series[0].points;
-                each(points, function (p, i) {
-                    // if (i !== 1 && i !== 2) {
+                points.forEach((p, i) => {
+                    // if (i !== 1 && i !== 2) 
                     p.graphic.attr({
                         translateY: -p.shapeArgs.ran
                     });
@@ -618,7 +622,7 @@ export default defineComponent({
                     p.graphic.side2.attr({
                         translateY: -p.shapeArgs.ran
                     });
-                });
+                })
             });
         }
 

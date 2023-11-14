@@ -51,6 +51,7 @@ export default defineComponent({
             watch(loaded, (newValue, oldValue) => {
                 // 如果从其他页面进入
                 if (loaded.value) {
+                    displayWsd(true)
                     // setInterval(() => {
                     // 获取温湿度数据
                     getWsdData()
@@ -67,6 +68,11 @@ export default defineComponent({
             }, { immediate: true })
         })
 
+
+        // 显示温湿度传感器
+        function displayWsd(bool) {
+            sceneObj.scene.transformNodes.find(item => item.name == 'tempGroup').setEnabled(bool)
+        }
 
         // 清除该页面操作
         function destoryWsd() {
@@ -89,6 +95,7 @@ export default defineComponent({
         // 页面离开时恢复材质
         onBeforeUnmount(() => {
             destoryWsd()
+            displayWsd(false)
         })
 
         return {

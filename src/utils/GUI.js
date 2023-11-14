@@ -15,63 +15,76 @@ import level4Img from '@/assets/images/home/提醒.png'
 温湿度GUI
 
 @scene 场景
-@data 漏水数据
+@data 温湿度数据
 */
 export function createTemper(scene, data) {
+    console.log(data);
     // 遍历数据生成gui
     data.forEach((item, index) => {
         //   创建mesh
-        let wsd = new MeshBuilder.CreateSphere(`wsd_${index}`, { diameter: 0.02 }, scene)
-        wsd.position = new Vector3(item.vector.x, item.vector.y, item.vector.z)
-        wsd.visibility = 0 //默认看不见
-        wsd.isPickable = false
+        // let wsd = new MeshBuilder.CreateSphere(`wsd_${index}`, { diameter: 0.02 }, scene)
+        // wsd.position = new Vector3(item.vector.x, item.vector.y, item.vector.z)
+        // wsd.visibility = 0 //默认看不见
+        // wsd.isPickable = false
         // wsd.setEnabled(false) //默认隐藏
 
-        // 创建平面
-        let wsd_plane = new MeshBuilder.CreatePlane(`wsd${index}_plane`, { height: 0.15, width: 0.2 }, scene)
-        wsd_plane.parent = wsd
-        wsd_plane.position.y = 0.1;
-        wsd_plane.billboardMode = Mesh.BILLBOARDMODE_ALL; //广告牌模式gui始终面向相机
+        scene.getTransformNodeByName('tempGroup').getChildMeshes().forEach((model, index) => {
+            console.log(model.name);
+            if (/^TH/.test(model.name) && item.name == model.name) {
+                // 创建平面
+                let wsd_plane = new MeshBuilder.CreatePlane(`wsd${index}_plane`, { height: 1.5, width: 2 }, scene)
+                wsd_plane.parent = model
+                wsd_plane.position.y = -1.1;
+                wsd_plane.rotation.x = Math.PI
+                wsd_plane.billboardMode = Mesh.BILLBOARDMODE_ALL; //广告牌模式gui始终面向相机
+                wsd_plane.renderingGroupId = 3
 
-        // 创建纹理模式GUI
-        let wsd_Texture = AdvancedDynamicTexture.CreateForMesh(wsd_plane, 1024/*纹理宽度*/, 768/*纹理高度*/, false/*纹理是否捕捉移动事件*/);
-        wsd_Texture.name = 'wsdTexture'
-        // 创建容器
-        let wsd_Container = new Rectangle()
-        wsd_Container.name = `wsd_Container_${index}`
-        wsd_Container.width = 1;
-        wsd_Container.height = 1;
-        wsd_Container.color = "#409eff";
-        wsd_Container.thickness = 40; //边框宽度
-        wsd_Container.background = "#212324b5";
-        wsd_Container.cornerRadius = 25;
-        wsd_Texture.addControl(wsd_Container);
+                // 创建纹理模式GUI
+                let wsd_Texture = AdvancedDynamicTexture.CreateForMesh(wsd_plane, 1024/*纹理宽度*/, 768/*纹理高度*/, false/*纹理是否捕捉移动事件*/);
+                wsd_Texture.name = 'wsdTexture'
+                // 创建容器
+                let wsd_Container = new Rectangle()
+                wsd_Container.name = `wsd_Container_${index}`
+                wsd_Container.width = 1;
+                wsd_Container.height = 1;
+                wsd_Container.color = "#409eff";
+                wsd_Container.thickness = 40; //边框宽度
+                wsd_Container.background = "#212324b5";
+                wsd_Container.cornerRadius = 25;
+                wsd_Texture.addControl(wsd_Container);
 
-        // 创建文字
-        let title = new TextBlock()
-        title.name = `wsd${index}_title`
-        title.text = item.name
-        title.color = 'white'
-        title.fontSize = 120;
-        title.top = '-230px'
-        title.fontWeight = 800
-        wsd_Container.addControl(title);
+                // 创建文字
+                let title = new TextBlock()
+                title.name = `wsd${index}_title`
+                title.text = item.name
+                title.color = 'white'
+                title.fontSize = 120;
+                title.top = '-230px'
+                title.fontWeight = 800
+                wsd_Container.addControl(title);
 
-        let wd = new TextBlock()
-        wd.name = `wsd${index}_wd`
-        wd.text = `温度:${item.wd}℃`
-        wd.color = 'white'
-        wd.fontSize = 100;
-        wd.top = '0px'
-        wsd_Container.addControl(wd);
+                let wd = new TextBlock()
+                wd.name = `wsd${index}_wd`
+                wd.text = `温度:${item.wd}℃`
+                wd.color = 'white'
+                wd.fontSize = 100;
+                wd.top = '0px'
+                wsd_Container.addControl(wd);
 
-        let sd = new TextBlock()
-        sd.name = `wsd${index}_sd`
-        sd.text = `湿度:${item.sd}%`
-        sd.color = 'white'
-        sd.fontSize = 100;
-        sd.top = '200px'
-        wsd_Container.addControl(sd);
+                let sd = new TextBlock()
+                sd.name = `wsd${index}_sd`
+                sd.text = `湿度:${item.sd}%`
+                sd.color = 'white'
+                sd.fontSize = 100;
+                sd.top = '200px'
+                wsd_Container.addControl(sd);
+
+            }
+        })
+
+
+
+
     })
 }
 

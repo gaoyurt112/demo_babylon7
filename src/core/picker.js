@@ -182,6 +182,9 @@ export function DeviceSearchPicker(sceneObj, isScene1) {
                             })
                             cloneParent = pickResult.pickedMesh.parent.name
                             // console.log(cloneParent);
+                        } else if (/^TH/.test(pickResult.pickedMesh.name)) {
+                            cameraFly(sceneObj.scene.cameras[0], 60, pickResult.pickedMesh.absolutePosition, 0.3296, -0.0100, 0.7224)
+                            slelectSourceHighLight(sceneObj.scene, pickResult.pickedMesh, new Color3(0, 0.902, 1))
                         }
                     }, 300);
                 };

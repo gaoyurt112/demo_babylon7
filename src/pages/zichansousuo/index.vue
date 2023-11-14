@@ -355,6 +355,8 @@ export default defineComponent({
             sceneObj.scene.transformNodes.find(item => item.name == 'smoke_group').setEnabled(bool)
             // 隐藏轨道相机
             sceneObj.scene.transformNodes.find(item => item.name == 'monitor_rail').setEnabled(bool)
+            // 温湿度传感器
+            sceneObj.scene.transformNodes.find(item => item.name == 'tempGroup').setEnabled(bool)
         }
 
 

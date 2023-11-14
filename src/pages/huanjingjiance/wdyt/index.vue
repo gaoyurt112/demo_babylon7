@@ -72,6 +72,7 @@ export default defineComponent({
         onMounted(() => {
             watch(loaded, (newValue, oldValue) => {
                 if (loaded.value) {
+                    displayWsd(true)
                     // 温度云图相机
                     cameraFly(sceneObj.camera, 120, new Vector3(0.093, 0.071, 0.054), 1.8593, 0.7100, 1.0613)
                     getWsdData()
@@ -163,9 +164,15 @@ export default defineComponent({
         }
 
 
+        // 显示温湿度传感器
+        function displayWsd(bool) {
+            sceneObj.scene.transformNodes.find(item => item.name == 'tempGroup').setEnabled(bool)
+        }
+
 
         // 页面离开前恢复操作
         onBeforeUnmount(() => {
+            displayWsd(false)
             // 删除upPlane
             let upPlane = sceneObj.scene.getMeshByName('upPlane')
             upPlane.dispose()

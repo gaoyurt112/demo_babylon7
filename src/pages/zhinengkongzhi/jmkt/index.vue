@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div class="leftq" :class="{ 'slide-in': isEntering, 'slide-out2': isLeaving }"></div>
-        <div class="rightq" :class="{ 'slide-in': isEntering, 'slide-out': isLeaving }"></div>
+
     </div>
 </template>
 
@@ -26,37 +25,31 @@ export default defineComponent({
 
         // 接收父组件传递的场景
         let sceneObj = inject('scene')
-        console.log(sceneObj);
-
-        watch(loaded, (newValue, oldValue) => {
-            console.log('监听到了', newValue, oldValue);
-            if (newValue == true) {
-                // 如果渲染完毕加载ui,控制摄像机
-                setTimeout(() => {
-                    isEntering.value = true
-                }, 50)
-            }
-        })
-
-        // let camera = sceneObj.camera
-        // console.log(camera);
-        // // 设置相机目标
-        // camera.alpha = 0.7100
-        // camera.beta = 0.5897
-        // // camera.useAutoRotationBehavior = true
-
+        // console.log(sceneObj);
 
         onMounted(() => {
-            console.log(isEntering.value, '路由进入了');
-            if (!loaded.value) {
-                return
-            } else if (loaded.value) {
-                setTimeout(() => {
-                    isEntering.value = true
-                }, 50)
-            }
+            watch(loaded, (newValue, oldValue) => {
+                if (loaded.value) {
 
+
+
+                    // setTimeout(() => {
+                    //     isEntering.value = true
+                    // }, 50)
+                }
+            }, { immediate: true })
         })
+
+
+
+
+
+
+
+
+
+
+
 
         return {
             isEntering,
@@ -65,16 +58,16 @@ export default defineComponent({
         }
     },
     // 组件销毁前调用动画
-    beforeRouteLeave(to, from, next) {
-        // console.log('路由离开');
-        // console.log(this.isLeaving);
-        this.isEntering = false
-        this.isLeaving = true
-        // console.log(this.isLeaving);
-        setTimeout(() => {
-            next()
-        }, 600)
-    },
+    // beforeRouteLeave(to, from, next) {
+    //     // console.log('路由离开');
+    //     // console.log(this.isLeaving);
+    //     this.isEntering = false
+    //     this.isLeaving = true
+    //     // console.log(this.isLeaving);
+    //     setTimeout(() => {
+    //         next()
+    //     }, 600)
+    // }
 })
 </script>
 <style>

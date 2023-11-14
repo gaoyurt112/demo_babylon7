@@ -114,7 +114,7 @@ onMounted(async () => {
         })
 
         // 加载机房场景模型
-        const mods = await loadModel('', '/mods/', 'room6.glb', scene1)
+        const mods = await loadModel('', '/mods/', 'room7.glb', scene1)
         mods.meshes[0].scaling = new Vector3(-0.1, 0.1, 0.1)
 
         let baseGroundMaterial = new StandardMaterial("groundMat", scene1)
@@ -331,6 +331,11 @@ onMounted(async () => {
         // 轨道相机组
         let railMonitor = scene1.transformNodes.find(item => item.name == 'monitor_rail')
         railMonitor.setEnabled(false)
+
+        // 温湿度组
+        let wsdGroup = scene1.transformNodes.find(item => item.name == 'tempGroup')
+        wsdGroup.setEnabled(false)
+
 
         // 设置所有instancedMesh的visibility为1
         scene1.meshes.forEach(item => {

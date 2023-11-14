@@ -9,17 +9,17 @@ import { debounce } from 'lodash'
 */
 export async function createScene(canvas) {
     let engine = null;
-    const isWebGPUSupported = await WebGPUEngine.IsSupportedAsync; //是否支持WebGPU
-    // console.log(isWebGPUSupported); //是否支持WebGPU
-    // 可以使用简化的辅助函数 EngineFactory
-    if (isWebGPUSupported) {
-        // 如果支持WebGPU，使用WebGPU引擎
-        engine = new WebGPUEngine(canvas, { stencil: true });
-        await engine.initAsync(); // 初始化WebGPU引擎
-    } else {
-        // 如果不支持WebGPU，使用WebGL引擎
-        engine = new Engine(canvas, true, { stencil: true });
-    };
+    // const isWebGPUSupported = await WebGPUEngine.IsSupportedAsync; //是否支持WebGPU
+    // // console.log(isWebGPUSupported); //是否支持WebGPU
+    // // 可以使用简化的辅助函数 EngineFactory
+    // if (isWebGPUSupported) {
+    //     // 如果支持WebGPU，使用WebGPU引擎
+    //     engine = new WebGPUEngine(canvas, { stencil: true });
+    //     await engine.initAsync(); // 初始化WebGPU引擎
+    // } else {
+    // 如果不支持WebGPU，使用WebGL引擎
+    engine = new Engine(canvas, true, { stencil: true });
+    // };
 
     // 场景1
     const scene = new Scene(engine)
